@@ -22,6 +22,7 @@ app.use(cors(
 ));
 
 
+
 connectDB();
 groupRoutes(app)
 

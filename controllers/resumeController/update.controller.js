@@ -6,7 +6,6 @@ const updateResume = (req,res)=>{
         const { title, dateFrom, dateTo, type } = req.body;
         const dateFromConvert = dateTo ? new Date(dateTo).toISOString() : null;
         const dateToConvert = dateFrom ? new Date(dateFrom).toISOString() : null;
-
         const update = {};
         if (title) update.title = title;
         if (dateFromConvert) update.dateFrom = dateFromConvert;

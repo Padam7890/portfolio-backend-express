@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/mongoose");
 const groupRoutes = require("./route/mainRoute");
-require("dotenv").config();
+require("dotenv").config({path: './.env',})
 
 const app = express();
 
@@ -13,6 +13,7 @@ app.use(
   express.urlencoded({
     extended: true,
   })
+  
 );
 app.use(cors(
     {

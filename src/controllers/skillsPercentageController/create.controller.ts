@@ -6,6 +6,7 @@ import asyncHandler from "../../middleware/asyncHandler";
 const createSkillPercenatege = asyncHandler (async (req, res)=> {
   try {
     const { title, percentage } = req.body;
+    console.log(req.body)
     const saveSkillsPer = new SkillsPercentage({
       title,
       percentage: parseInt(percentage),
@@ -16,6 +17,7 @@ const createSkillPercenatege = asyncHandler (async (req, res)=> {
       data: dataSave,
     });
   } catch (error:any) {
+    console.log(error)
     return res.status(500).json({
       message: "Server error",
       error: error,

@@ -15,7 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models/models");
 const passwordhash_1 = __importDefault(require("../../utils/passwordhash"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const asyncHandler_1 = __importDefault(require("../../middleware/asyncHandler"));
+const createUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, positions, email, phone, location, password, birthday, aboutMe, facebookUrl, instagramUrl, linkedinUrl, } = req.body;
         const profileImage = req.cloudinaryUrl;
@@ -60,5 +61,5 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             error: error.message,
         });
     }
-});
+}));
 exports.default = createUser;

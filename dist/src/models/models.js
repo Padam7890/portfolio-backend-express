@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Contact = exports.Blog = exports.Portfolio = exports.Tag = exports.SkillsPercentage = exports.EducationExperience = exports.Client = exports.Testimonial = exports.Skill = exports.User = void 0;
+exports.Contact = exports.Blog = exports.Portfolio = exports.Category = exports.SkillsPercentage = exports.EducationExperience = exports.Client = exports.Testimonial = exports.Skill = exports.User = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 // User Schema
 const UserSchema = new mongoose_1.Schema({
@@ -81,13 +81,23 @@ const EducationExperienceSchema = new mongoose_1.Schema({
 });
 // Skills Percentage Schema
 const SkillsPercentageSchema = new mongoose_1.Schema({
-    title: { type: String, required: true },
+    title: { type: String, required: true, unique: true },
     percentage: { type: Number, required: true },
+    portfolios: [{
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: 'Portfolio'
+        }]
 });
-// Tags Schema
-const TagsSchema = new mongoose_1.Schema({
-    name: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
+const categorySchema = new mongoose_1.Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    portfolios: [{
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: 'Portfolio',
+        }],
 });
 // Portfolio Schema
 const PortfolioSchema = new mongoose_1.Schema({
@@ -96,7 +106,11 @@ const PortfolioSchema = new mongoose_1.Schema({
     image: { type: String, required: true },
     url: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
-    tags: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Tag" }],
+    category: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true,
+    },
 });
 // Blog Schema
 const BlogSchema = new mongoose_1.Schema({
@@ -121,7 +135,7 @@ exports.Testimonial = mongoose_1.default.model("Testimonial", TestimonialsSchema
 exports.Client = mongoose_1.default.model("Client", ClientsSchema);
 exports.EducationExperience = mongoose_1.default.model("EducationExperience", EducationExperienceSchema);
 exports.SkillsPercentage = mongoose_1.default.model("SkillsPercentage", SkillsPercentageSchema);
-exports.Tag = mongoose_1.default.model("Tag", TagsSchema);
+exports.Category = mongoose_1.default.model("Category", categorySchema);
 exports.Portfolio = mongoose_1.default.model("Portfolio", PortfolioSchema);
 exports.Blog = mongoose_1.default.model("Blog", BlogSchema);
 exports.Contact = mongoose_1.default.model("Contact", ContactSchema);

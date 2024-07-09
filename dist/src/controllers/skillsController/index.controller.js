@@ -8,18 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models/models");
-const userDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const asyncHandler_1 = __importDefault(require("../../middleware/asyncHandler"));
+const showSkills = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield models_1.User.find()
-            .sort({
-            _id: 1,
-        })
-            .limit(1);
+        const skills = yield models_1.Skill.find();
         return res.status(200).json({
-            msg: "user details found",
-            data: user,
+            msg: "skills found",
+            data: skills,
         });
     }
     catch (error) {
@@ -28,5 +28,5 @@ const userDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             error: error.message,
         });
     }
-});
-exports.default = userDetails;
+}));
+exports.default = showSkills;

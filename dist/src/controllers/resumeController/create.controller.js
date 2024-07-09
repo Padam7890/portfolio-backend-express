@@ -13,32 +13,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models/models");
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const asyncHandler_1 = __importDefault(require("../../middleware/asyncHandler"));
+const resumeSave = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, password } = req.body;
-        console.log(email);
-        const user = yield models_1.User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ msg: "Invalid Credentials" });
+        const { title, dateFrom, dateTo, type, description } = req.body;
+        const dateFromConvert = dateTo ? new Date(dateTo) : null;
+        const dateToConvert = dateFrom ? new Date(dateFrom) : null;
+        if (type !== "education" && type !== "experience") {
+            return res.status(400).json({ message: "Invalid type" });
         }
-        const isMatch = yield bcryptjs_1.default.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ msg: "Invalid Credentials" });
-        }
-        const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "1d",
+        const saveResume = new models_1.EducationExperience({
+            title,
+            dateFrom: dateFromConvert,
+            dateTo: dateToConvert,
+            description,
+            type,
         });
-        return res.json({
-            message: "Logged in successfully",
-            accessToken: token,
-            user: { _id: user._id, name: user.name, email: user.email },
+        const savedResume = yield saveResume.save();
+        return res.status(200).json({
+            msg: "Resume saved successfully",
+            data: savedResume,
         });
     }
     catch (error) {
         console.log(error);
-        return res.status(500).json({ msg: "Server Error" });
+        return res.status(500).json({ msg: "Server Error", error: error });
     }
-});
-exports.default = loginUser;
+}));
+exports.default = resumeSave;

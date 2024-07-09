@@ -10,7 +10,7 @@ const create_controller_1 = __importDefault(require("../controllers/userControll
 const login_controller_1 = __importDefault(require("../controllers/userController/login.controller"));
 const userDetails_controller_1 = __importDefault(require("../controllers/userController/userDetails.controller"));
 const router = express_1.default.Router();
-router.post('/', upload_1.default.single('profileImage'), (req, res, next) => (0, cloudsave_1.default)(req, res, next), (req, res) => (0, create_controller_1.default)(req, res));
-router.post('/login', (req, res) => (0, login_controller_1.default)(req, res));
-router.get('/user', (req, res) => (0, userDetails_controller_1.default)(req, res));
+router.post('/', upload_1.default.single('profileImage'), cloudsave_1.default, create_controller_1.default);
+router.post('/login', login_controller_1.default);
+router.get('/user', userDetails_controller_1.default);
 exports.default = router;

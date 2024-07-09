@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const mongoose_1 = __importDefault(require("./config/mongoose"));
+const mongoose_1 = __importDefault(require("./src/config/mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const mainRoute_1 = __importDefault(require("./route/mainRoute"));
+const mainRoute_1 = __importDefault(require("./src/route/mainRoute"));
 dotenv_1.default.config({ path: './.env' });
 const app = (0, express_1.default)();
 // Middleware

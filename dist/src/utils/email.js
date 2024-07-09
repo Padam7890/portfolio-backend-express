@@ -23,21 +23,21 @@ const sendEmail = (option) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const transporter = nodemailer_1.default.createTransport({
             host: process.env.EMAIL_HOST,
-            port: parseInt(process.env.EMAIL_PORT || '587'), // Ensure port is parsed as an integer
-            secure: false, // Set to true if using secure connection (SSL/TLS)
+            port: parseInt(process.env.EMAIL_PORT || '587'),
+            secure: false,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASSWORD,
             },
         });
         const emailOptions = {
-            from: option.from,
-            to: option.to,
+            from: "admin@padamthapa.com.np",
+            to: "padamthapamoho@gmail.com",
             subject: option.subject,
             html: option.html,
         };
         try {
-            logger.info(`Sending mail to - ${option.to}`);
+            logger.info(`Sending mail to - ${emailOptions.to}`);
             const info = yield transporter.sendMail(emailOptions);
             logger.info(`Email sent: ${info.response}`);
             return "Email Sent Successfully";

@@ -8,7 +8,9 @@ const skillRoute_1 = __importDefault(require("./skillRoute"));
 const testimonialRoute_1 = __importDefault(require("./testimonialRoute"));
 const resumeRoute_1 = __importDefault(require("./resumeRoute"));
 const portfolioRoutes_1 = __importDefault(require("./portfolioRoutes"));
+const generalRoute_1 = __importDefault(require("./generalRoute"));
 const groupRoutes = (app) => {
+    app.use("/api/general", generalRoute_1.default);
     app.use('/api/users', userRoute_1.default);
     app.use('/api/skills', skillRoute_1.default);
     app.use('/api/testimonials', testimonialRoute_1.default);

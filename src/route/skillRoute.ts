@@ -10,3 +10,4 @@ router.get("/", showSkills)
 router.post("/skillpercentage", createSkillPercentage)
 router.get("/skillpercentage", getSkillPercentage)
 export default router;
+

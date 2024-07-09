@@ -63,15 +63,32 @@ const EducationExperienceSchema = new Schema({
 
 // Skills Percentage Schema
 const SkillsPercentageSchema = new Schema({
-  title: { type: String, required: true },
+  title: { type: String, required: true, unique:true },
   percentage: { type: Number, required: true },
+  portfolios: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Portfolio'
+  }]
 });
 
-// Tags Schema
-const TagsSchema = new Schema({
-  name: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
+
+interface ICategory extends Document {
+  name: string;
+  portfolios: mongoose.Types.ObjectId[];
+}
+
+const categorySchema = new Schema<ICategory>({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  portfolios: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Portfolio',
+  }],
 });
+
 
 // Portfolio Schema
 const PortfolioSchema = new Schema({
@@ -80,8 +97,13 @@ const PortfolioSchema = new Schema({
   image: { type: String, required: true },
   url: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
+  },
 });
+
 
 // Blog Schema
 const BlogSchema = new Schema({
@@ -114,7 +136,7 @@ export const SkillsPercentage = mongoose.model(
   "SkillsPercentage",
   SkillsPercentageSchema
 );
-export const Tag = mongoose.model("Tag", TagsSchema);
+export const Category = mongoose.model("Category", categorySchema);
 export const Portfolio = mongoose.model("Portfolio", PortfolioSchema);
 export const Blog = mongoose.model("Blog", BlogSchema);
 export const Contact = mongoose.model("Contact", ContactSchema);

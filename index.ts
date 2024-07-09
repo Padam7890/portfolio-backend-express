@@ -1,8 +1,8 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import connectDB from "./config/mongoose";
+import connectDB from "./src/config/mongoose";
 import dotenv from "dotenv";
-import groupRoutes from "./route/mainRoute";
+import groupRoutes from "./src/route/mainRoute";
 
 dotenv.config({ path: './.env' });
 

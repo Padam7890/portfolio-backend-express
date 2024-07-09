@@ -11,10 +11,13 @@ const app: Express = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(cors({
-  origin: "https://padamthapa.com.np",
+  origin: "*",
   credentials: true,
 }));
+
+
 
 // Connect to MongoDB
 connectDB();

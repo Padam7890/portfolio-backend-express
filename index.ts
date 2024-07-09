@@ -12,7 +12,7 @@ const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://padamthapa.com.np/",
   credentials: true,
 }));
 

@@ -14,9 +14,11 @@ interface DecodedToken extends JwtPayload {
 
 const checkAuth = asyncHandler ( async (req:CustomRequest, res, next)=> {
   let token = req.headers.authorization;
-  console.log(token);
+  
+  console.log("token" + token);
 
   if (!token) {
+
     return res.status(401).json({ message: "Not Logged in" });
   }
 

@@ -1,26 +1,32 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, model, Document } from 'mongoose';
 
+interface IUser extends Document {
+  name: string;
+  positions: string[];
+  email: string;
+  phone: string;
+  password: string;
+  passwordChangedAt?: Date | null;
+  passwordResetToken?: string | null;
+  passwordResetTokenExpire?: Date | null;
+  birthday: Date;
+  location: string;
+  aboutMe: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  profileImage: string;
+}
 
-// User Schema
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
   positions: { type: [String], required: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
   password: { type: String, required: true },
-  passwordChangedAt: {
-    type: Date,
-    default: null,
-  },
-  passwordResetToken: {
-    type: String,
-    default: null,
-  },
-  passwordResetTokenExpire: {
-    type: Date,
-    default: null,
-  },
-
+  passwordChangedAt: { type: Date, default: null },
+  passwordResetToken: { type: String, default: null },
+  passwordResetTokenExpire: { type: Date, default: null },
   birthday: { type: Date, required: true },
   location: { type: String, required: true },
   aboutMe: { type: String, required: true },
@@ -29,7 +35,6 @@ const UserSchema = new Schema({
   linkedinUrl: { type: String },
   profileImage: { type: String, required: true },
 });
-
 // Skills Schema
 const SkillsSchema = new Schema({
   title: { type: String, required: true },
@@ -124,7 +129,7 @@ const ContactSchema = new Schema({
 });
 
 // Models
-export const User = mongoose.model("User", UserSchema);
+export const User = model<IUser>('User', UserSchema);
 export const Skill = mongoose.model("Skill", SkillsSchema);
 export const Testimonial = mongoose.model("Testimonial", TestimonialsSchema);
 export const Client = mongoose.model("Client", ClientsSchema);
@@ -136,6 +141,7 @@ export const SkillsPercentage = mongoose.model(
   "SkillsPercentage",
   SkillsPercentageSchema
 );
+
 export const Category = mongoose.model("Category", categorySchema);
 export const Portfolio = mongoose.model("Portfolio", PortfolioSchema);
 export const Blog = mongoose.model("Blog", BlogSchema);

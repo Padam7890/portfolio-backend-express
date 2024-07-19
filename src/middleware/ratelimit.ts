@@ -1,6 +1,6 @@
 import rateLimit, { Options, RateLimitRequestHandler } from "express-rate-limit";
 
-// Define the function parameters with appropriate types
+
 function createRateLimiter(
   windowMs: number,
   max: number,

@@ -17,9 +17,7 @@ const loginUser = asyncHandler ( async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ msg: "Invalid Credentials" });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string);
     return res.json({
       message: "Logged in successfully",
       accessToken: token,

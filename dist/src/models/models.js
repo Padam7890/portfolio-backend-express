@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Contact = exports.Blog = exports.Portfolio = exports.Category = exports.SkillsPercentage = exports.EducationExperience = exports.Client = exports.Testimonial = exports.Skill = exports.User = void 0;
+exports.Contact = exports.Blog = exports.Portfolio = exports.Category = exports.SkillsPercentage = exports.EducationExperience = exports.Client = exports.Testimonial = exports.Skill = exports.Role = exports.User = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const UserSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
@@ -41,6 +41,15 @@ const UserSchema = new mongoose_1.Schema({
     instagramUrl: { type: String },
     linkedinUrl: { type: String },
     profileImage: { type: String, required: true },
+    roles: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Role' }],
+});
+const RoleSchema = new mongoose_1.Schema({
+    name: {
+        type: String, required: true,
+        enum: ['admin', 'user'],
+        unique: true,
+        default: 'user',
+    },
 });
 // Skills Schema
 const SkillsSchema = new mongoose_1.Schema({
@@ -120,6 +129,7 @@ const ContactSchema = new mongoose_1.Schema({
 });
 // Models
 exports.User = (0, mongoose_1.model)('User', UserSchema);
+exports.Role = (0, mongoose_1.model)('Role', RoleSchema);
 exports.Skill = mongoose_1.default.model("Skill", SkillsSchema);
 exports.Testimonial = mongoose_1.default.model("Testimonial", TestimonialsSchema);
 exports.Client = mongoose_1.default.model("Client", ClientsSchema);

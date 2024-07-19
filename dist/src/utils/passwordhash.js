@@ -20,6 +20,7 @@ const hashPassword = (password) => __awaiter(void 0, void 0, void 0, function* (
         return hashedPassword;
     }
     catch (error) {
+        console.log(error);
         throw new Error('Error hashing password');
     }
 });

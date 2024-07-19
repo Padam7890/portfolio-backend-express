@@ -20,7 +20,8 @@ const userDetails = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, 
             .sort({
             _id: 1,
         })
-            .limit(1);
+            .limit(1)
+            .select("-password");
         return res.status(200).json({
             msg: "user details found",
             data: user,

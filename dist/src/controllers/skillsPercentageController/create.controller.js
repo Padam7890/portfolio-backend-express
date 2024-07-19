@@ -18,6 +18,7 @@ const createSkillPercenatege = (0, asyncHandler_1.default)((req, res) => __await
     try {
         const { title, percentage } = req.body;
         console.log(req.body);
+        console.log(req.body);
         const saveSkillsPer = new models_1.SkillsPercentage({
             title,
             percentage: parseInt(percentage),

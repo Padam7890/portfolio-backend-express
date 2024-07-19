@@ -7,4 +7,5 @@ const express_1 = require("express");
 const contact_controller_1 = __importDefault(require("../controllers/contactController/contact.controller"));
 const router = (0, express_1.Router)();
 router.post('/contact', contact_controller_1.default);
+// router.post('/signup', upload.single('profileImage'),uploadToCloudinary, createUser);
 exports.default = router;

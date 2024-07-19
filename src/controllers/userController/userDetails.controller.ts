@@ -9,7 +9,12 @@ const userDetails = asyncHandler (async (req, res) => {
       .sort({
         _id: 1,
       })
-      .limit(1);
+      .limit(1)
+      .select(
+        "-password"
+      )
+      
+      ;
     return res.status(200).json({
       msg: "user details found",
       data: user,

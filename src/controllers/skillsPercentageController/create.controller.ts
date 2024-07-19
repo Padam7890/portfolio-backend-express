@@ -7,6 +7,7 @@ const createSkillPercenatege = asyncHandler (async (req, res)=> {
   try {
     const { title, percentage } = req.body;
     console.log(req.body)
+    console.log(req.body)
     const saveSkillsPer = new SkillsPercentage({
       title,
       percentage: parseInt(percentage),

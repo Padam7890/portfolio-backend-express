@@ -16,6 +16,7 @@ interface IUser extends Document {
   instagramUrl?: string;
   linkedinUrl?: string;
   profileImage: string;
+  roles: [{ type: Schema.Types.ObjectId, ref: 'Role' }],
 }
 
 const UserSchema = new Schema<IUser>({
@@ -34,7 +35,22 @@ const UserSchema = new Schema<IUser>({
   instagramUrl: { type: String },
   linkedinUrl: { type: String },
   profileImage: { type: String, required: true },
+  roles: [{ type: Schema.Types.ObjectId, ref: 'Role' }],
 });
+
+const RoleSchema = new Schema({
+  name: {
+     type: String, required: true ,
+     enum: ['admin', 'user'],
+     unique: true,
+     default: 'user',
+
+
+  },
+})
+
+
+
 // Skills Schema
 const SkillsSchema = new Schema({
   title: { type: String, required: true },
@@ -128,8 +144,11 @@ const ContactSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+
 // Models
 export const User = model<IUser>('User', UserSchema);
+
+export const Role = model('Role', RoleSchema);
 export const Skill = mongoose.model("Skill", SkillsSchema);
 export const Testimonial = mongoose.model("Testimonial", TestimonialsSchema);
 export const Client = mongoose.model("Client", ClientsSchema);

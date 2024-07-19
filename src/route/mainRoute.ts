@@ -9,7 +9,7 @@ import checkAuth from "../middleware/auth";
 
 const groupRoutes = (app:Express)=> {
     app.use("/api/general", checkAuth,  generalRoute)
-    app.use('/api/users', checkAuth, user);
+    app.use('/api/users', user);
     app.use('/api/skills', checkAuth, skillRoutes);
     app.use('/api/testimonials',checkAuth, testimonialsRoutes);
     app.use('/api/resume', checkAuth, resumeRoutes);

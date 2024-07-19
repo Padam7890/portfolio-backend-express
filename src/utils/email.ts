@@ -27,6 +27,7 @@ const sendEmail = async (option: any): Promise<string> => {
       subject: option.subject,
       html: option.html,
     };
+    
 
     try {
       logger.info(`Sending mail to - ${emailOptions.to}`);

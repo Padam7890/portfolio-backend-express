@@ -46,9 +46,7 @@ const createUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, v
         });
         yield user.save();
         //sign in with jwt token
-        const accessToken = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "1d",
-        });
+        const accessToken = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET);
         return res.status(201).json({
             message: "User created successfully",
             data: user,

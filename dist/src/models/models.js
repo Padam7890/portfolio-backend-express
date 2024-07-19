@@ -25,25 +25,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Contact = exports.Blog = exports.Portfolio = exports.Category = exports.SkillsPercentage = exports.EducationExperience = exports.Client = exports.Testimonial = exports.Skill = exports.User = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-// User Schema
 const UserSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     positions: { type: [String], required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
-    passwordChangedAt: {
-        type: Date,
-        default: null,
-    },
-    passwordResetToken: {
-        type: String,
-        default: null,
-    },
-    passwordResetTokenExpire: {
-        type: Date,
-        default: null,
-    },
+    passwordChangedAt: { type: Date, default: null },
+    passwordResetToken: { type: String, default: null },
+    passwordResetTokenExpire: { type: Date, default: null },
     birthday: { type: Date, required: true },
     location: { type: String, required: true },
     aboutMe: { type: String, required: true },
@@ -129,7 +119,7 @@ const ContactSchema = new mongoose_1.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 // Models
-exports.User = mongoose_1.default.model("User", UserSchema);
+exports.User = (0, mongoose_1.model)('User', UserSchema);
 exports.Skill = mongoose_1.default.model("Skill", SkillsSchema);
 exports.Testimonial = mongoose_1.default.model("Testimonial", TestimonialsSchema);
 exports.Client = mongoose_1.default.model("Client", ClientsSchema);

@@ -5,13 +5,12 @@ import dotenv from "dotenv";
 import groupRoutes from "./src/route/mainRoute";
 import { User } from "./src/models/models";
 import bcrypt from "bcryptjs"
-import jwt from "jsonwebtoken"
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-
-dotenv.config({ path: './.env' });
-
 const app: Express = express();
+
+dotenv.config();
+
 
 // Middleware
 app.use(express.json());

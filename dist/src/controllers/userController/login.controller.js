@@ -19,26 +19,29 @@ const asyncHandler_1 = __importDefault(require("../../middleware/asyncHandler"))
 const loginUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
-        console.log(email);
+        console.log('Email:', email);
+        // Find the user by email
         const user = yield models_1.User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ msg: "Invalid Credentials" });
+            return res.status(400).json({ msg: "Invalid email" });
         }
+        // Compare provided password with the hashed password in the database
         const isMatch = yield bcryptjs_1.default.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ msg: "Invalid Credentials" });
+            return res.status(400).json({ msg: "Invalid password" });
         }
-        const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "1d",
-        });
+        // Generate JWT token without expiration
+        const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET);
+        // Return response with token and user details
         return res.json({
             message: "Logged in successfully",
             accessToken: token,
+            key: process.env.JWT_SECRET,
             user: { _id: user._id, name: user.name, email: user.email },
         });
     }
     catch (error) {
-        console.log(error);
+        console.error('Login Error:', error);
         return res.status(500).json({ msg: "Server Error" });
     }
 }));

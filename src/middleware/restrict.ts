@@ -1,20 +1,17 @@
 import asyncHandler from "../middleware/asyncHandler";
 import { Role } from "../models/models";
+import { Request, Response, NextFunction } from "express";
 
 const checkRole = (requiredRole: string) => {
-  return asyncHandler(async (req, res, next) => {
-    // Ensure req.user is defined and has a role property
+  return asyncHandler(async (req, res ,next) => {
+    // Ensure req.user is defined and has a roles property
     if (req.user && req.user.roles) {
-         console.log("User Role" +req.user.roles)
+      console.log("User Roles:", req.user.roles);
 
-         //get role
-
-         const getRole:any = await Role.findOne({
-            _id:req.user.roles
-         })
-        const hasRole = getRole.name === requiredRole;
-      if (hasRole) {
-         return next();
+      // Find the role in the database
+      const getRole = await Role.findById(req.user.roles);
+      if (getRole && getRole.name === requiredRole) {
+        return next();
       } else {
         return res.status(403).json({ msg: "Access denied" });
       }

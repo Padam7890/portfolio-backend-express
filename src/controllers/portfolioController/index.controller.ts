@@ -47,13 +47,10 @@ export const getPortfolioByCategory = asyncHandler(async(req,res)=> {
           }
     
           // Find portfolios by category ID
-          portfolios = await Portfolio.find({ category: categoryObj._id }).populate('category', 'name').sort({
-            createdAt:-1
-          });
+          portfolios = await Portfolio.find({ category: categoryObj._id }).populate('category', 'name').sort({createdAt:-1});
         } else {
           // No category query parameter, fetch all portfolios
-          portfolios = await Portfolio.find().populate('category', 'name').sort({
-            createdAt:-1
+          portfolios = await Portfolio.find().populate('category', 'name').sort({createdAt:-1
           });
         }
         

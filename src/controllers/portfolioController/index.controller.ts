@@ -3,7 +3,9 @@ import { Category, Portfolio } from "../../models/models";
 
 export const getPortfolio  = asyncHandler (async(req,res)=> {
     try {
-        const portfolio = await Portfolio.find().populate('category', 'name');
+        const portfolio = await Portfolio.find().populate('category', 'name').sort({
+          createdAt:-1
+        });
        return res.status(200).json({
         msg: "Portfolio found",
         data: portfolio,

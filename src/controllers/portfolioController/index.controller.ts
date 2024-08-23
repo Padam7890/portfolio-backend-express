@@ -4,7 +4,7 @@ import { Category, Portfolio } from "../../models/models";
 export const getPortfolio  = asyncHandler (async(req,res)=> {
     try {
         const portfolio = await Portfolio.find().populate('category', 'name').sort({
-          createdAt:-1
+          createdAt:1
         });
        return res.status(200).json({
         msg: "Portfolio found",
@@ -47,10 +47,14 @@ export const getPortfolioByCategory = asyncHandler(async(req,res)=> {
           }
     
           // Find portfolios by category ID
-          portfolios = await Portfolio.find({ category: categoryObj._id }).populate('category', 'name');
+          portfolios = await Portfolio.find({ category: categoryObj._id }).populate('category', 'name').sort({
+            createdAt:1
+          });
         } else {
           // No category query parameter, fetch all portfolios
-          portfolios = await Portfolio.find().populate('category', 'name');
+          portfolios = await Portfolio.find().populate('category', 'name').sort({
+            createdAt:1
+          });
         }
         
         return res.status(200).json({
